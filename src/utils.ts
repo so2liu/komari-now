@@ -1,4 +1,4 @@
-import { order, menu, sub, ItemFoundFromMenu, id } from "./interfaces";
+import { TOrder, TMenu, ISub, IItemFoundFromMenu, TID } from "./interfaces";
 
 const baseURL = window.location.href;
 export function getIsPartnerDev(url: string): boolean {
@@ -16,13 +16,13 @@ export function getIsDev(url: string): boolean {
 }
 export const isDev = getIsDev(baseURL);
 
-export function findIndexFromOrderByID(id: id, order: order): number {
+export function findIndexFromOrderByID(id: TID, order: TOrder): number {
   const index = order.order.findIndex((element) => element.id === id);
   return index;
 }
 
-export function findSubFromMenuByID(id: id, menu: menu): ItemFoundFromMenu {
-  const target: ItemFoundFromMenu = {
+export function findSubFromMenuByID(id: TID, menu: TMenu): IItemFoundFromMenu {
+  const target: IItemFoundFromMenu = {
     isFound: false,
     sub: { id: null, subname: null, price: null },
     firstKey: null,

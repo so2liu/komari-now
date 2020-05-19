@@ -102,35 +102,35 @@
           "SWEET SALMON": {
             "imgSrc": "h-sweet-salmon.jpeg",
             "DE": "Gegrilltes Lachsfilet mit grünem Spargel (oder Gemüse der Saison) gebraten in Soja Balsamico Dressing, serviert mit frischem Salat, Sesamreis, Guacamole und Salsa Roja",
-            "sub": [{ "subname": null, "price": 16, "id": 20 }],
+            "sub": [{ "subname": null, "price": 16, "id": "20" }],
             "EN": "Grilled salmon filet with green asparagus (or seasonal vegatables) in soja balsamico dressing, served with fresh salad, sesame rice, guacamole and salsa roja"
           },
           "BEST OCEAN": {
-            "sub": [{ "price": 17, "id": 18, "subname": null }],
+            "sub": [{ "price": 17, "id": "18", "subname": null }],
             "EN": "Raw salmon, tuna, scallops, cooked shrimp, ebi tempura served with sushi rice, wildflower salad, guacamole, salsa roja, ginger, wasabi, sesame dressing, unagi sauce and sesame.",
             "imgSrc": "h-best-ocean.jpeg",
             "DE": "Frischer roher Lachs, Thunfisch, Kammmuscheln,gekochte Garnelen, Ebi Tempura auf Sushireis, verfeinert mit einem Wildblüten Rucola Salat,Guacamole, Salsa Roja, Ingwer, Wasabi, Sesam Dressing, Unagi Soße und Sesam."
           },
           "DRY-AGED PREMIUM STEAK": {
             "DE": "500g Premium T-bone Dry-aged Steak medium gegrillt, serviert mit Shiitake gebraten in Miso Soße, Wildkräuter Salat, Süßkartoffelpommes, hausgemachtem Salsa Roja und Guacamole.",
-            "sub": [{ "subname": null, "price": 32.5, "id": 23 }],
+            "sub": [{ "subname": null, "price": 32.5, "id": "23" }],
             "EN": "500g premium T-bone Dryaged steak medium grilled, served with fried shiitake in homemade miso sauce, salsa roja, guacamole, sprout-herb salad and sweet fries",
             "imgSrc": "h-dry-aged-steak.jpeg"
           },
           "TOFU CURRY": {
             "imgSrc": "h-curry-tofu.jpeg",
             "DE": "Cremiges Kokos-Curry mit Tofu und Hokaido Kurbis, verfeinert mit Wildkräuter Salat und Salsa Roja auf Sesamreis und gerösteten Erdnüssen.",
-            "sub": [{ "id": 25, "subname": null, "price": 10 }],
+            "sub": [{ "id": "25", "subname": null, "price": 10 }],
             "EN": "Creamy coconut curry with tofu, Hokaido pumpkin, served with sprout-herb salad, salsa roja, sesam rice and roasted peanut"
           },
           "MANGO ENTE": {
             "imgSrc": "h-mango-ente.jpeg",
             "DE": "Gegrillte Entenbrust mit Mango Créme verfeinert mit Kokosmilch, serviert mit Rucola Salat, Reis, Salsa Roja und gerösteten Cashew Kernen",
-            "sub": [{ "id": 16, "subname": null, "price": 15.5 }],
+            "sub": [{ "id": "16", "subname": null, "price": 15.5 }],
             "EN": "Grilled duck breast with mango creme with coconut milk, served with rucola salad, rice and roasted cashew nuts"
           },
           "KUH AUF DER WEIDE": {
-            "sub": [{ "subname": null, "price": 19.5, "id": 21 }],
+            "sub": [{ "subname": null, "price": 19.5, "id": "21" }],
             "EN": "220g brazilian beef filet medium grilled, served with fried Babycorn, Karotte, Shanggai Pak Choi in miso sauce, homemade salsa roja, guacamole, sprout-herb salad and sweet fries",
             "imgSrc": "h-kuh-auf-der-weide.jpeg",
             "DE": "220g brasilianisches Rinderfilet medium gegrillt, serviert mit gebratenem Babymais, Karotten, Shangahi Pak Choi, Shitake in Miso Soße, Wildkräuter Salat, Süßkartoffelpommes, hausgemachtem Salsa Roja und Guacamole."
@@ -142,7 +142,7 @@
             "EN": "Homemade fried chicken skewers with sweet potatoes fries and Japanese mayonnaise"
           },
           "SURF AND TURF": {
-            "sub": [{ "id": 22, "subname": null, "price": 19.5 }],
+            "sub": [{ "id": "22", "subname": null, "price": 19.5 }],
             "EN": "150g medium grilled Brazilian beef steak and grilled tiger prawns, served with green asparagus, sugar pea and shiitake cooked in Taumi homemade miso sauce, backed sweet potato, sprout-herb salad, salsa roja and sesame rice",
             "imgSrc": "h-suf-tuf.jpeg",
             "DE": "150g medium gegrilltes brasilianisches Rinderfilet und gegrillte Großgarnelen serviert mit gebratenen grünem Spargel, Zuckererbsen und Shiitake in Miso-Soße, verfeinert mit Wildkräuter Salat, gedämpften Süßkartoffeln, hausgemachtem Salsa Roja, Guacamole und Sesamreis"
@@ -155,13 +155,13 @@
           },
           "GREEN GARDEN": {
             "DE": "Bestes Gemüse asiatischer Herkunft, gebraten und verfeinert mit Roja Balsamico Soße, garniert mit Rucola Salat abgeschmeckt mit Salsa Roja, serviert mit Sesamreis",
-            "sub": [{ "price": 10.5, "id": 24, "subname": null }],
+            "sub": [{ "price": 10.5, "id": "24", "subname": null }],
             "EN": "The best combination of asian vegetables roasted with Roja Balsamico Sauce, garnished with Rucola Salat, served with Salsa Roja and sesame rice",
             "imgSrc": "h-green-garden.jpeg"
           },
           "MANGURO POWER": {
             "DE": "Thunfischfilet in japanischem Gewürz kurz gegrillt, serviert mit gebraten Spargel, Wildblüten Salat, Guacamole, Salsa Roja und Sesamreis",
-            "sub": [{ "id": 19, "subname": null, "price": 18 }],
+            "sub": [{ "id": "19", "subname": null, "price": 18 }],
             "EN": "Japanese spice seared tuna filet raw grilled, served with roasted asparagus, wildflower bloom salad, sesam rice, guacamole and salsa roja",
             "imgSrc": "h-maguro-powder.jpeg"
           },
@@ -178,7 +178,7 @@
           "UDON IN SCHWARZWALD": {
             "imgSrc": "h-udon.jpeg",
             "DE": "Japanische Udon Nudeln gebraten mit Tofu, Paprika, Zucchini und Karroten in hausgemachter Roja-Balsamico Soße, aromatisiert mit Salsa Roja, Zwiebeln, Wildblütensalat und Sesam.",
-            "sub": [{ "subname": null, "price": 11, "id": 26 }],
+            "sub": [{ "subname": null, "price": 11, "id": "26" }],
             "EN": "Japanese Udon noodles fried with tofu, paprika, zuchhini und carrots in homemade Roja-Balsamico Sauce, flavored with salsa roja, fresh sproutflower salad, onions and sesame"
           }
         },
@@ -336,14 +336,14 @@
                 "price": 10.5
               },
               {
-                "id": "U7",
+                "id": "U27",
                 "subname": "Salmonskin - gegrillte lachshaut, gurke, sesam",
                 "price": 9.2
               },
               {
                 "subname": "Vegie - tempura-avocado und gurke, ummantelt mit mango und reispapier",
                 "price": 8.5,
-                "id": "U8"
+                "id": "U28"
               }
             ],
             "EN": null,
@@ -413,11 +413,11 @@
           "SEAWEED SALAT": {
             "imgSrc": "seaweed-salad.jpg",
             "DE": "Seetang Salat mit Gurke, serviert mit Sesamdressing und Sesam",
-            "sub": [{ "subname": null, "price": 5, "id": 9 }],
+            "sub": [{ "subname": null, "price": 5, "id": "9" }],
             "EN": "Seaweed salad with cucumber, served with sesame dressing and sesame"
           },
           "PRAWNS IN SILK": {
-            "sub": [{ "subname": null, "price": 5, "id": 7 }],
+            "sub": [{ "subname": null, "price": 5, "id": "7" }],
             "EN": "Dumplings made from rice flour filled with minced shrimp and vegetables",
             "imgSrc": "v-prawn-in-silk.jpeg",
             "DE": "Teigtaschen aus Reismehl gefüllt mit gehackten Garnelen und Gemüse"
@@ -432,7 +432,7 @@
             "DE": "Verschiedene kleine Vorspeisen aus unseren Vorspeisen Menü: Edamame, Dumplings, Springrolls, Summerrolls"
           },
           "TARTARE": {
-            "sub": [{ "id": 5, "subname": null, "price": 7.5 }],
+            "sub": [{ "id": "5", "subname": null, "price": 7.5 }],
             "EN": "Tuna tartare with avocado, spring onions with spicy sauce and seaweed salad, served with Vietnamese Banh Da",
             "imgSrc": "v-tatar2.jpeg",
             "DE": "Thunfisch Tartare mit Avocado, Lauchzwiebeln mit scharfer Sauce und Seetangsalat serviert mit vietnamesischem Banh Da"
@@ -441,7 +441,7 @@
             "EN": "Vietnamese crispy springrolls filled with prawns and vegetables, served with a lime-chili dip",
             "imgSrc": "v-fruehling-rolle.jpeg",
             "DE": "Vietnamesische knusprige Frühlingsrollen gefüllt mit Garnelen und Gemüse, serviert mit Süss-Sauer-Dip",
-            "sub": [{ "price": 6, "id": 3, "subname": null }]
+            "sub": [{ "price": 6, "id": "3", "subname": null }]
           },
           "FUSION SALAT": {
             "DE": "Wildkräutersalat mit Rucola, Cherrytomaten, frische Mango, Gurken, serviert mit Salsa-Roja, gerösteten Erdnüssem und Shiso Kresse. ",
@@ -481,26 +481,26 @@
           },
           "SMOKY SATE": {
             "DE": "Gebratene Hühnerspieße mit Erdnuss Soße",
-            "sub": [{ "id": 6, "subname": null, "price": 6 }],
+            "sub": [{ "id": "6", "subname": null, "price": 6 }],
             "EN": "Fried chicken skewers with peanut sauce",
             "imgSrc": "v-sate.jpeg"
           },
           "EDAMAME": {
             "DE": "Baby grüne Sojabohnen serviert mit Meersalz",
-            "sub": [{ "price": 5, "id": 4, "subname": null }],
+            "sub": [{ "price": 5, "id": "4", "subname": null }],
             "EN": "Baby green soy beans served with sea salt",
             "imgSrc": "v-edamame.jpeg"
           },
           "SüßKARTOFFEL POMMES": {
             "DE": "Süßkartoffel Pommes serviert mit Japanischer Mayonnaise",
-            "sub": [{ "id": 11, "subname": null, "price": 5 }],
+            "sub": [{ "id": "11", "subname": null, "price": 5 }],
             "EN": "Sweet potato fries served with Japanese mayonnaise",
             "imgSrc": null
           },
           "Catch the fish": {
             "imgSrc": "v-catch-the-fish.jpeg",
             "DE": "Suppe mit Lachs, Großgarnelen, Grüne Muscheln, Cherry Tomaten, Tom-yum Paste, Champignons Lauchzwiebeln und Dill",
-            "sub": [{ "id": 1, "subname": null, "price": 7.5 }],
+            "sub": [{ "id": "1", "subname": null, "price": 7.5 }],
             "EN": "Soup with salmon, tiger prawns, green mussels, cherry tomatoes, Tom-yum paste, mushrooms, spring onions and dill"
           },
           "PHO": {
@@ -533,7 +533,7 @@
           },
           "GOLDEN MANGO SALAT": {
             "DE": "Gegrillte Garnelen, frische Mango, Gurke und Salat gemischt in Süß-Sauer Soße, serviert mit Cherrytomaten.",
-            "sub": [{ "id": 8, "subname": null, "price": 8.5 }],
+            "sub": [{ "id": "8", "subname": null, "price": 8.5 }],
             "EN": "Grilled Shrimp, fresh mango, cucumber, Salat mixed in sweet-sour sauce, served with cherry tomato",
             "imgSrc": "v-mango-salat.jpeg"
           }

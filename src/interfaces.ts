@@ -1,29 +1,38 @@
-import { type } from "os";
+export type TID = string;
 
-export type id = string | number;
-
-export interface orderItem {
-  id: id;
+export interface IOrderItem {
+  id: TID;
   name: string;
   price: number;
   quantity: number;
   timestamp: Date;
 }
 
-export type order = Omit<submitOrder, "tableID">;
+export type TOrder = Omit<ISubmitOrder, "tableID">;
 
-export interface submitOrder {
-  order: orderItem[];
+export interface ISubmitOrder {
+  order: IOrderItem[];
   tableID: string | null;
   submitTimestamp: Date | null;
   isDealed: boolean | null;
   isThisTableFinished: boolean | null;
 }
 
-export interface sub {
-  id: id;
+export interface ISub {
+  id: TID;
   subname: string | null;
   price: number;
+}
+
+export interface IProduct {
+  [name: string]: {
+    DE: string;
+    EN: string | null;
+    sub: ISub[];
+    imgSrc: string | null;
+    rating: number;
+    ratedNum: number;
+  };
 }
 
 // export type menu = {
@@ -46,24 +55,15 @@ export interface sub {
 //   };
 // };
 
-export type menu = {
+export type TMenu = {
   [first: string]: {
-    [second: string]:
-      | {}
-      | {
-          [name: string]: {
-            DE: string;
-            EN: string | null;
-            sub: sub[];
-            imgSrc: string | null;
-          };
-        };
+    [second: string]: {} | IProduct;
   };
 };
 
-export interface ItemFoundFromMenu {
+export interface IItemFoundFromMenu {
   isFound: boolean;
-  sub: { id: null; subname: null; price: null } | sub;
+  sub: { id: null; subname: null; price: null } | ISub;
   firstKey: null | string;
   secondKey: null | string;
 }

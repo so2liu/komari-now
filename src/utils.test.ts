@@ -5,7 +5,7 @@ import {
   findIndexFromOrderByID,
   findSubFromMenuByID,
 } from "./utils";
-import { order, ItemFoundFromMenu } from "./interfaces";
+import { TOrder, IItemFoundFromMenu } from "./interfaces";
 import partnerInfo from "./mock/taumi_menu.json";
 
 const MENU = partnerInfo.taumi.menu;
@@ -41,7 +41,7 @@ test("isDev (devloper and partner) for all kinds of url", () => {
 });
 
 test("findIndexFromOrderByID", () => {
-  const mockOrder: order = {
+  const mockOrder: TOrder = {
     submitTimestamp: new Date(),
     isDealed: false,
     isThisTableFinished: false,
@@ -72,19 +72,19 @@ test("findSubFromMenuByID", () => {
     firstKey: "normal",
     secondKey: "Vorspeise",
     sub: { id: 1, subname: null, price: 7.5 },
-  } as ItemFoundFromMenu);
+  } as IItemFoundFromMenu);
 
   expect(findSubFromMenuByID("M11", MENU)).toStrictEqual({
     isFound: true,
     firstKey: "normal",
     secondKey: "Sushi",
     sub: { id: "M11", subname: "Avocado - Avocado", price: 4.2 },
-  } as ItemFoundFromMenu);
+  } as IItemFoundFromMenu);
 
   expect(findSubFromMenuByID("M1", MENU)).toStrictEqual({
     isFound: false,
     firstKey: null,
     secondKey: null,
     sub: { id: null, subname: null, price: null },
-  } as ItemFoundFromMenu);
+  } as IItemFoundFromMenu);
 });
