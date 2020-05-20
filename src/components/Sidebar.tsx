@@ -54,9 +54,9 @@ const useStyles = makeStyles((theme) => ({
 
 function ResponsiveDrawer(props: {
   drawerItems: { label: string; key: string }[][];
+  onDrawerClick: (x: string) => void;
   children: React.ReactNode | React.ReactNode[];
 }) {
-  const container = <h3>Hi container</h3>;
   const { drawerItems } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -70,12 +70,19 @@ function ResponsiveDrawer(props: {
     <div>
       <div className={classes.toolbar} />
 
-      {drawerItems.map((items) => (
+      {drawerItems.map((items, index) => (
         <>
-          <Divider />
-          <List>
+          <Divider key={`devider-${index}`} />
+          <List key={`list-${index}`}>
             {items.map(({ label, key }, index) => (
-              <ListItem button key={key}>
+              <ListItem
+                button
+                key={key}
+                onClick={() => {
+                  console.log("sidebar", label);
+                  props.onDrawerClick(label);
+                }}
+              >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
@@ -139,6 +146,7 @@ function ResponsiveDrawer(props: {
         </Hidden>
       </nav>
       <main className={classes.content}>
+        <div className={classes.toolbar} />
         <div className={classes.toolbar} />
         {props.children}
       </main>

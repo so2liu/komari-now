@@ -5,7 +5,8 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import RestoreIcon from "@material-ui/icons/Restore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { drawerWidth } from "./Drawer";
+import { Link } from "react-router-dom";
+import { drawerWidth } from "./Sidebar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,7 +44,9 @@ export default function SimpleBottomNavigation(props: {
       className={classes.root}
     >
       {items.map(({ key, label, link, icon }) => (
-        <BottomNavigationAction key={key} label={label} icon={icon} />
+        <Link key={key} to={link}>
+          <BottomNavigationAction label={label} icon={icon} />
+        </Link>
       ))}
     </BottomNavigation>
   );

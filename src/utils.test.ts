@@ -4,6 +4,8 @@ import {
   getIsDev,
   findIndexFromOrderByID,
   findSubFromMenuByID,
+  mapDrawerList,
+  getTotalPrice,
 } from "./utils";
 import { TOrder, IItemFoundFromMenu } from "./interfaces";
 import partnerInfo from "./mock/taumi_menu.json";
@@ -41,42 +43,21 @@ test("isDev (devloper and partner) for all kinds of url", () => {
 });
 
 test("findIndexFromOrderByID", () => {
-  const mockOrder: TOrder = {
-    submitTimestamp: new Date(),
-    isDealed: false,
-    isThisTableFinished: false,
-    order: [
-      {
-        id: "M11",
-        name: "Maki Avocado",
-        price: 4.2,
-        quantity: 2,
-        timestamp: new Date(),
-      },
-      {
-        id: "15H",
-        name: "Curry Chicken",
-        price: 14,
-        quantity: 2,
-        timestamp: new Date(),
-      },
-    ],
-  };
   expect(findIndexFromOrderByID("15H", mockOrder)).toBe(1);
   expect(findIndexFromOrderByID("15", mockOrder)).toBe(-1);
 });
 
 test("findSubFromMenuByID", () => {
-  expect(findSubFromMenuByID(1, MENU)).toStrictEqual({
+  expect(findSubFromMenuByID("1", MENU)).toStrictEqual({
     isFound: true,
-    firstKey: "normal",
+    firstKey: "food",
     secondKey: "Vorspeise",
-    sub: { id: 1, subname: null, price: 7.5 },
+    sub: { id: "1", subname: null, price: 7.5 },
   } as IItemFoundFromMenu);
 
   expect(findSubFromMenuByID("M11", MENU)).toStrictEqual({
     isFound: true,
-    firstKey: "normal",
+    firstKey: "food",
     secondKey: "Sushi",
     sub: { id: "M11", subname: "Avocado - Avocado", price: 4.2 },
   } as IItemFoundFromMenu);
@@ -88,3 +69,62 @@ test("findSubFromMenuByID", () => {
     sub: { id: null, subname: null, price: null },
   } as IItemFoundFromMenu);
 });
+
+test("mapDrawerList", () => {
+  const drawerItems = [
+    ["Mittagstisch", "Vorspeise"],
+    ["Hauptspeise", "Sushi", "Sushi Set"],
+  ];
+  expect(mapDrawerList(drawerItems)).toStrictEqual([
+    [
+      {
+        key: "Mittagstisch",
+        label: "Mittagstisch",
+      },
+      {
+        key: "Vorspeise",
+        label: "Vorspeise",
+      },
+    ],
+    [
+      {
+        key: "Hauptspeise",
+        label: "Hauptspeise",
+      },
+      {
+        key: "Sushi",
+        label: "Sushi",
+      },
+      {
+        key: "Sushi Set",
+        label: "Sushi Set",
+      },
+    ],
+  ]);
+});
+
+test("getTotalPrice", () => {
+  expect(getTotalPrice(mockOrder)).toBe(36.4);
+});
+
+const mockOrder: TOrder = {
+  submitTimestamp: new Date(),
+  isDealed: false,
+  isThisTableFinished: false,
+  order: [
+    {
+      id: "M11",
+      name: "Maki Avocado",
+      price: 4.2,
+      quantity: 2,
+      timestamp: new Date(),
+    },
+    {
+      id: "15H",
+      name: "Curry Chicken",
+      price: 14,
+      quantity: 2,
+      timestamp: new Date(),
+    },
+  ],
+};

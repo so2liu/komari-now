@@ -8,7 +8,7 @@ export default (props: { products: IProduct }) => {
   function handleClickList(id: TID) {}
   return (
     <>
-      <Grid container direction="column" spacing={10}>
+      <Grid container direction="column" spacing={0}>
         {Object.keys(products).map((mainName) => {
           const product = products[mainName];
           return (

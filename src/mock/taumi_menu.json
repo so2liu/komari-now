@@ -19,8 +19,8 @@
       "Kleve": "Opschlag 6, 47533"
     },
     "menu": {
-      "discount": { "Angebote": {} },
-      "normal": {
+      "food": {
+        "Mittagstisch": {},
         "Sushiset": {
           "ROBU INVASION": {
             "sub": [{ "subname": null, "price": 47, "id": "ROBU INVASION" }],

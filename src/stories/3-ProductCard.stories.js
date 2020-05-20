@@ -3,8 +3,8 @@ import ProductCard from "../components/ProductCard";
 import CardList from "../components/CardList";
 import Rating from "../components/UI/Rating";
 import CardBase from "../components/UI/CardBase";
-import partnerInfo from "../mock/taumi_menu.json";
 import TextInfoContent from "../components/UI/TextInfoContent";
+import partnerInfo from "../mock/taumi_menu.json";
 
 const MENU = partnerInfo.taumi.menu;
 export default {
@@ -83,7 +83,7 @@ export const TextField = () => {
 };
 
 const mockSushi = {
-  Sashimi: MENU.normal.Sushi.Sashimi,
+  Sashimi: MENU.food.Sushi.Sashimi,
 };
 
 const mockDrink = {

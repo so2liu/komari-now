@@ -2,7 +2,7 @@ import React from "react";
 import RestoreIcon from "@material-ui/icons/Restore";
 import { LocalBar, Restaurant, Payment } from "@material-ui/icons";
 
-import ResponsiveDrawer from "../components/Drawer";
+import ResponsiveDrawer from "../components/Sidebar";
 import SimpleBottomNavigation from "../components/BottomNav";
 
 export default (props: {
@@ -10,40 +10,50 @@ export default (props: {
     label: string;
     key: string;
   }[][];
+  // onDrawerClick: (x: string) => void;
+  onDrawerClick: any;
   children: React.ReactNode | React.ReactNode[];
 }) => {
-  const bottomNavItems = [
-    {
-      key: "drinks",
-      label: "Getränke",
-      link: "/drinks",
-      icon: <LocalBar />,
-    },
-    {
-      key: "eat",
-      label: "Speisen",
-      link: "/eat",
-      icon: <Restaurant />,
-    },
-    {
-      key: "history",
-      label: "Bestellungen",
-      link: "/history",
-      icon: <RestoreIcon />,
-    },
-    {
-      key: "pay",
-      label: "Bezahlen",
-      link: "/pay",
-      icon: <Payment />,
-    },
-  ];
   return (
     <>
-      <ResponsiveDrawer drawerItems={props.drawerItems}>
+      <ResponsiveDrawer
+        drawerItems={props.drawerItems}
+        onDrawerClick={(x: string) => {
+          console.log("layout", x);
+          console.log(props.onDrawerClick);
+          props.onDrawerClick(x);
+        }}
+      >
         {props.children}
         <SimpleBottomNavigation items={bottomNavItems} />
       </ResponsiveDrawer>
     </>
   );
 };
+
+const bottomNavItems = [
+  {
+    key: "drinks",
+    label: "Getränke",
+    link: "/drinks",
+    icon: <LocalBar />,
+  },
+  {
+    key: "food",
+    label: "Speisen",
+    link: "/food",
+    icon: <Restaurant />,
+  },
+  {
+    key: "history",
+    label: "Bestellungen",
+    link: "/history",
+    icon: <RestoreIcon />,
+  },
+  {
+    key: "pay",
+    label: "Bezahlen",
+    link: "/pay",
+    icon: <Payment />,
+  },
+];

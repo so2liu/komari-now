@@ -36,7 +36,7 @@ export interface IProduct {
 }
 
 // export type menu = {
-//   [first in "discount" | "normal" | "drinks"]: {
+//   [first in "food" | "drinks"]: {
 //     [second in
 //       | "Angebote"
 //       | "Sushiset"

@@ -3,8 +3,10 @@ import React from "react";
 import Layout from "../containers/Layout";
 
 export default (props: any) => {
+  const pageURL = window.location.href.split("/").slice(-1)[0];
   return (
     <Layout
+      onDrawerClick={() => {}}
       drawerItems={[
         [{ label: "Vorspeise", key: "Vorspeise" }],
         [
@@ -23,7 +25,7 @@ export default (props: any) => {
         ],
       ]}
     >
-      <h2>Hi MockPage</h2>
+      <h2>Hi {pageURL.toUpperCase()} Page</h2>
     </Layout>
   );
 };

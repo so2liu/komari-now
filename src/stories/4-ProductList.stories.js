@@ -26,6 +26,6 @@ export const Drinks = () => {
   );
 };
 
-const mockEat = MENU.normal.Hauptspeise;
-const mockSushi = MENU.normal.Sushi;
+const mockEat = MENU.food.Hauptspeise;
+const mockSushi = MENU.food.Sushi;
 const mockDrinks = MENU.drinks["Hausgemachte Frische Getränke"];

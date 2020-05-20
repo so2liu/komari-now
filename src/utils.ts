@@ -46,3 +46,19 @@ export function findSubFromMenuByID(id: TID, menu: TMenu): IItemFoundFromMenu {
   }
   return target;
 }
+
+export function mapDrawerList(drawerList: string[][]) {
+  return drawerList.map((eachList) =>
+    eachList.map((item) => ({
+      key: item,
+      label: item,
+    }))
+  );
+}
+
+export const mockPartnerInfo = require("./mock/taumi_menu.json");
+export const mockMenu = mockPartnerInfo.taumi.menu;
+
+export function getTotalPrice(order: TOrder) {
+  return order.order.reduce((arr, cur) => arr + cur.quantity * cur.price, 0);
+}
