@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "./UI/Table";
-import { TableRow, TableCell, TableFooter } from "@material-ui/core";
+import { TableRow, TableCell, TableFooter, Button } from "@material-ui/core";
 import ChangeNumBtn from "./UI/ChangeNumBtn";
 import { TOrder } from "../interfaces";
 import { getTotalPrice } from "../utils";

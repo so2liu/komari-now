@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ChangeNumBtn from "../components/UI/ChangeNumBtn";
 import partnerInfo from "../mock/taumi_menu.json";
 import { Container } from "@material-ui/core";
-import OrderTable from "../components/OrderTable";
+import CartTable from "../components/CartTable";
 
 const MENU = partnerInfo.taumi.menu;
 
@@ -30,5 +30,5 @@ export const Btn = () => {
 };
 
 export const Standard = () => {
-  return <OrderTable />;
+  return <CartTable />;
 };

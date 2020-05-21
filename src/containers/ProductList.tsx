@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IProduct, TID } from "../interfaces";
 import ProductCard from "../components/ProductCard";
-import { Grid } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 
 export default (props: { products: IProduct }) => {
   const { products } = props;
@@ -13,10 +13,12 @@ export default (props: { products: IProduct }) => {
           const product = products[mainName];
           return (
             <Grid item key={mainName}>
-              <ProductCard
-                product={{ [mainName]: product }}
-                onClickList={handleClickList}
-              />
+              <Box mt={4}>
+                <ProductCard
+                  product={{ [mainName]: product }}
+                  onClickList={handleClickList}
+                />
+              </Box>
             </Grid>
           );
         })}

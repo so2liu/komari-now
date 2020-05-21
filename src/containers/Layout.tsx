@@ -1,6 +1,11 @@
 import React from "react";
 import RestoreIcon from "@material-ui/icons/Restore";
-import { LocalBar, Restaurant, Payment } from "@material-ui/icons";
+import {
+  LocalBar,
+  Restaurant,
+  Payment,
+  ShoppingBasket,
+} from "@material-ui/icons";
 
 import ResponsiveDrawer from "../components/Sidebar";
 import SimpleBottomNavigation from "../components/BottomNav";
@@ -45,10 +50,10 @@ const bottomNavItems = [
     icon: <Restaurant />,
   },
   {
-    key: "history",
+    key: "cart",
     label: "Bestellungen",
-    link: "/history",
-    icon: <RestoreIcon />,
+    link: "/cart",
+    icon: <ShoppingBasket />,
   },
   {
     key: "pay",
