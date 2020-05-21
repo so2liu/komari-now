@@ -1,11 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { IProduct, TID } from "../interfaces";
 import ProductCard from "../components/ProductCard";
 import { Grid, Box } from "@material-ui/core";
+import { OrderContext, MenuContext } from "../stores";
 
 export default (props: { products: IProduct }) => {
   const { products } = props;
-  function handleClickList(id: TID) {}
+  const order = useContext(OrderContext);
+  const menu = useContext(MenuContext);
+  function handleClickList(id: TID) {
+    order.dispatch({
+      type: "append",
+      payload: {
+        id,
+        menu,
+      },
+    });
+  }
   return (
     <>
       <Grid container direction="column" spacing={0}>

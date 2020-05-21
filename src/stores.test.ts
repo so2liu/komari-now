@@ -1,10 +1,10 @@
-import { OrderReducer, OrderDefault } from "./stores";
+import { OrderReducer, OrderInit } from "./stores";
 import partnerInfo from "./mock/taumi_menu.json";
 
 const MENU = partnerInfo.taumi.menu;
 
 test("OrderReducer append & create new state", () => {
-  const thisOrder = OrderDefault;
+  const thisOrder = OrderInit;
   const nextOrder = OrderReducer.appendOrder(thisOrder, "M11", 1, MENU);
   expect(nextOrder).toStrictEqual({
     order: [
@@ -24,7 +24,7 @@ test("OrderReducer append & create new state", () => {
 });
 
 test("OrderReducer change quantity", () => {
-  const thisOrder = OrderReducer.appendOrder(OrderDefault, "M11", 1, MENU);
+  const thisOrder = OrderReducer.appendOrder(OrderInit, "M11", 1, MENU);
   const nextOrder = OrderReducer.changeQuantity(thisOrder, "M11", 2);
   expect(nextOrder).toStrictEqual({
     order: [
@@ -44,7 +44,7 @@ test("OrderReducer change quantity", () => {
 });
 
 test("OrderReducer delete order item", () => {
-  let thisOrder = OrderReducer.appendOrder(OrderDefault, "M11", 1, MENU);
+  let thisOrder = OrderReducer.appendOrder(OrderInit, "M11", 1, MENU);
   thisOrder = OrderReducer.appendOrder(thisOrder, "M12", 1, MENU);
   let nextOrder = OrderReducer.removeItem(thisOrder, "M11");
   expect(nextOrder).toStrictEqual({

@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import Table from "./UI/Table";
 import { TableRow, TableCell, TableFooter } from "@material-ui/core";
-import ChangeNumBtn from "./UI/ChangeNumBtn";
 import { getTotalPrice } from "../utils";
-import { OrderContext } from "../stores";
+import { TOrder } from "../interfaces";
 
-export default () => {
-  const order = useContext(OrderContext);
+export default (props: { order: TOrder }) => {
+  const { order } = props;
   const labels = [
     { key: "id", label: "ID" },
     { key: "name", label: "Name" },
@@ -20,28 +19,12 @@ export default () => {
         <TableCell colSpan={labels.length - 1} align="right">
           TOTAL:
         </TableCell>
-        <TableCell align="right">{getTotalPrice(order.state)}</TableCell>
+        <TableCell align="right">{getTotalPrice(order)}</TableCell>
       </TableRow>
     </TableFooter>
   );
 
   const row = (item: { [label: string]: string | number }, keys: string[]) => {
-    const handlePlus = () => {
-      order.dispatch({
-        type: "increment",
-        payload: {
-          id: item["id"],
-        },
-      });
-    };
-    const handleMinus = () => {
-      order.dispatch({
-        type: "decrement",
-        payload: {
-          id: item["id"],
-        },
-      });
-    };
     return (
       <TableRow key={item[keys[0]]}>
         {keys.map((key, index) => {
@@ -51,16 +34,12 @@ export default () => {
                 {item[keys[0]]}
               </TableCell>
             );
-          if (key === "quantity")
-            return (
-              <TableCell key={index} align="right">
-                <ChangeNumBtn
-                  num={item[key] as number}
-                  onPlusOne={handlePlus}
-                  onMinusOne={handleMinus}
-                />
-              </TableCell>
-            );
+          // if (key === "quantity")
+          //   return (
+          //     <TableCell key={index} align="right">
+          //      {}
+          //     </TableCell>
+          //   );
           return (
             <TableCell key={index} align="right">
               {item[key]}
@@ -71,7 +50,5 @@ export default () => {
     );
   };
 
-  return (
-    <Table labels={labels} data={order.state.order} row={row} footer={footer} />
-  );
+  return <Table labels={labels} data={order.order} row={row} footer={footer} />;
 };

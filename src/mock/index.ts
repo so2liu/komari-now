@@ -21,3 +21,6 @@ export const mockOrder: TOrder = {
     },
   ],
 };
+
+export const mockPartnerInfo = require("./taumi_menu.json");
+export const mockMenu = mockPartnerInfo.taumi.menu;

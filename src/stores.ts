@@ -1,21 +1,26 @@
-import { createContext } from "react";
+import { createContext, Dispatch } from "react";
 import { produce } from "immer";
+import { TOrder, TMenu, IOrderItem, TID, TOrderHistory } from "./interfaces";
 import {
-  TOrder,
-  IItemFoundFromMenu,
-  TMenu,
-  IOrderItem,
-  TID,
-} from "./interfaces";
-import { findSubFromMenuByID, findIndexFromOrderByID } from "./utils";
+  findSubFromMenuByID,
+  findIndexFromOrderByID,
+  concatNameSubname,
+} from "./utils";
+import { mockMenu } from "./mock";
 
-export const OrderDefault: TOrder = {
+export const OrderInit: TOrder = {
   order: [],
   submitTimestamp: null,
   isDealed: false,
   isThisTableFinished: false,
 };
-export const OrderContext = createContext(OrderDefault);
+export const OrderContext = createContext<{
+  state: TOrder;
+  dispatch: Dispatch<{ type: string; payload?: object }>;
+}>({
+  state: OrderInit,
+  dispatch: () => null,
+});
 
 export const OrderReducer = {
   appendOrder: produce(function (
@@ -28,7 +33,10 @@ export const OrderReducer = {
     if (targetOrder.isFound) {
       const newOrder: IOrderItem = {
         id: targetOrder.sub.id as TID,
-        name: targetOrder.sub.subname as string,
+        name: concatNameSubname(
+          targetOrder.name as string,
+          targetOrder.sub.subname
+        ),
         price: targetOrder.sub.price as number,
         quantity,
         timestamp: new Date(),
@@ -52,3 +60,10 @@ export const OrderReducer = {
     }
   }),
 };
+
+export const OrderHistoryContext = createContext<{
+  orderHistory: TOrderHistory;
+  setOrderHistory: React.Dispatch<React.SetStateAction<TOrderHistory>>;
+}>({ orderHistory: [], setOrderHistory: () => {} });
+
+export const MenuContext = createContext(mockMenu);

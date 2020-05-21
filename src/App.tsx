@@ -1,6 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import MockPage from "./pages/MockPage";
 import {
   BrowserRouter as Router,
@@ -9,7 +7,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import Food from "./pages/Food";
-import { mockMenu } from "./utils";
+import { mockMenu } from "./mock";
 import Cart from "./pages/Cart";
 import ContextProviders from "./contextProviders";
 

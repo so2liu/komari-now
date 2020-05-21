@@ -18,6 +18,8 @@ export interface ISubmitOrder {
   isThisTableFinished: boolean | null;
 }
 
+export type TOrderHistory = TOrder[];
+
 export interface ISub {
   id: TID;
   subname: string | null;
@@ -66,4 +68,5 @@ export interface IItemFoundFromMenu {
   sub: { id: null; subname: null; price: null } | ISub;
   firstKey: null | string;
   secondKey: null | string;
+  name: null | string;
 }

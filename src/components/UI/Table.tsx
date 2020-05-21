@@ -7,11 +7,12 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import ChangeNumBtn from "./ChangeNumBtn";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 300,
+    maxWidth: 650,
+    width: "100%",
   },
 });
 
@@ -30,7 +31,16 @@ export default function SimpleTable(props: {
         <TableHead>
           <TableRow>
             {labels.map(({ label, key }, index) => (
-              <TableCell key={key} align={index > 0 ? "right" : undefined}>
+              <TableCell
+                key={key}
+                align={
+                  index === 0
+                    ? "left"
+                    : index === keys.length - 1
+                    ? "right"
+                    : "center"
+                }
+              >
                 {label}
               </TableCell>
             ))}

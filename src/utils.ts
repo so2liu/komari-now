@@ -27,6 +27,7 @@ export function findSubFromMenuByID(id: TID, menu: TMenu): IItemFoundFromMenu {
     sub: { id: null, subname: null, price: null },
     firstKey: null,
     secondKey: null,
+    name: null,
   };
   for (let [firstKey, firstContent] of Object.entries(menu)) {
     for (let [secondKey, secondContent] of Object.entries(firstContent)) {
@@ -37,6 +38,7 @@ export function findSubFromMenuByID(id: TID, menu: TMenu): IItemFoundFromMenu {
             target.isFound = true;
             target.firstKey = firstKey;
             target.secondKey = secondKey;
+            target.name = name;
             target.sub = targetSub;
             return target;
           }
@@ -56,9 +58,12 @@ export function mapDrawerList(drawerList: string[][]) {
   );
 }
 
-export const mockPartnerInfo = require("./mock/taumi_menu.json");
-export const mockMenu = mockPartnerInfo.taumi.menu;
-
 export function getTotalPrice(order: TOrder) {
   return order.order.reduce((arr, cur) => arr + cur.quantity * cur.price, 0);
+}
+
+export function concatNameSubname(name: string, subname: string | null) {
+  if (!subname) return name;
+  const partSubname = subname.split("-")[0];
+  return [name, partSubname].join(" ");
 }
