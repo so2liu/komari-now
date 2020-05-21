@@ -10,6 +10,7 @@ import Food from "./pages/Food";
 import { mockMenu } from "./mock";
 import Cart from "./pages/Cart";
 import ContextProviders from "./contextProviders";
+import Drinks from "./pages/Drinks";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Redirect from="/" exact to="/cart" />
         <Switch>
           <Route path="/drinks">
-            <MockPage />
+            <Drinks MENU={mockMenu} />
           </Route>
           <Route path="/food">
             <Food MENU={mockMenu} />

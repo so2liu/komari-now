@@ -20,19 +20,15 @@ export default (props: {
   children: React.ReactNode | React.ReactNode[];
 }) => {
   return (
-    <>
-      <ResponsiveDrawer
-        drawerItems={props.drawerItems}
-        onDrawerClick={(x: string) => {
-          console.log("layout", x);
-          console.log(props.onDrawerClick);
-          props.onDrawerClick(x);
-        }}
-      >
-        {props.children}
-        <SimpleBottomNavigation items={bottomNavItems} />
-      </ResponsiveDrawer>
-    </>
+    <ResponsiveDrawer
+      drawerItems={props.drawerItems}
+      onDrawerClick={(x: string) => {
+        props.onDrawerClick(x);
+      }}
+    >
+      {props.children}
+      <SimpleBottomNavigation items={bottomNavItems} />
+    </ResponsiveDrawer>
   );
 };
 

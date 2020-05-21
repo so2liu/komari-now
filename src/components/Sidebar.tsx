@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React, { Children, useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -61,7 +61,7 @@ function ResponsiveDrawer(props: {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [selectedLabel, setSelectedLabel] = useState("");
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -72,14 +72,15 @@ function ResponsiveDrawer(props: {
 
       {drawerItems.map((items, index) => (
         <>
-          <Divider key={`devider-${index}`} />
+          <Divider key={`divider-${index}`} />
           <List key={`list-${index}`}>
             {items.map(({ label, key }, index) => (
               <ListItem
                 button
                 key={key}
+                selected={label === selectedLabel}
                 onClick={() => {
-                  console.log("sidebar", label);
+                  setSelectedLabel(label);
                   props.onDrawerClick(label);
                 }}
               >

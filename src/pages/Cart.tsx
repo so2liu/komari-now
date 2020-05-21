@@ -12,24 +12,32 @@ export default () => {
   return (
     <>
       <Layout drawerItems={[[]]} onDrawerClick={() => {}}>
-        <Typography variant="h5">Kaufwagen</Typography>
+        <Box m={2}>
+          <Typography variant="h5">Kaufwagen</Typography>
+        </Box>
 
         {order.state.order.length > 0 ? (
           <CartTableWithBtn />
         ) : (
-          <Typography variant="body1">Ihre Kaufwagen ist leer.</Typography>
+          <Box m={2}>
+            <Typography variant="body1">Ihre Kaufwagen ist leer.</Typography>
+          </Box>
         )}
         {orderHistory.orderHistory.length > 0 && (
           <>
-            <Divider />
-            <Typography variant="h5">Gesendete Bestellungen</Typography>{" "}
+            <Box mt={2} mb={2}>
+              <Divider />
+            </Box>
+            <Box m={2}>
+              <Typography variant="h5">Gesendete Bestellungen</Typography>
+            </Box>
+            {orderHistory.orderHistory.map((order, index) => (
+              <Box mt={2} key={index}>
+                <CartTableUnchangable order={order} />
+              </Box>
+            ))}
           </>
         )}
-        {orderHistory.orderHistory.map((order, index) => (
-          <Box mt={2} key={index}>
-            <CartTableUnchangable order={order} />
-          </Box>
-        ))}
       </Layout>
     </>
   );

@@ -8,7 +8,7 @@ import { OrderContext } from "../stores";
 export default () => {
   const order = useContext(OrderContext);
   const labels = [
-    { key: "id", label: "ID" },
+    // { key: "id", label: "ID" },
     { key: "name", label: "Name" },
     { key: "quantity", label: "Menge" },
     { key: "price", label: "Preis" },

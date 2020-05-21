@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   table: {
     minWidth: 300,
     maxWidth: 650,
-    width: "100%",
+    width: 375,
   },
 });
 
@@ -27,7 +27,7 @@ export default function SimpleTable(props: {
   const keys = labels.map(({ key }) => key);
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Table className={classes.table}>
         <TableHead>
           <TableRow>
             {labels.map(({ label, key }, index) => (

@@ -7,6 +7,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { Link } from "react-router-dom";
 import { drawerWidth } from "./Sidebar";
+import { ButtonBase } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,21 +33,20 @@ export default function SimpleBottomNavigation(props: {
 }) {
   const { items } = props;
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-
+  const currentKey = items.filter(({ key }) =>
+    window.location.href.includes(key)
+  )[0].key;
   return (
-    <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
-      showLabels
-      className={classes.root}
-    >
+    <BottomNavigation value={currentKey} className={classes.root}>
       {items.map(({ key, label, link, icon }) => (
-        <Link key={key} to={link}>
-          <BottomNavigationAction label={label} icon={icon} />
-        </Link>
+        <BottomNavigationAction
+          key={key}
+          label={label}
+          value={key}
+          icon={icon}
+          component={Link}
+          to={link}
+        />
       ))}
     </BottomNavigation>
   );
