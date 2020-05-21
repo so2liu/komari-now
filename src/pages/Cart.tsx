@@ -5,10 +5,12 @@ import CartTableUnchangable from "../components/CartTableUnchangable";
 import { Button, Grid, Box, Typography } from "@material-ui/core";
 import { OrderHistoryContext, OrderContext } from "../stores";
 import { Divider } from "@material-ui/core";
+import { useAddOrder } from "../services/firebase";
 
 export default () => {
   const order = useContext(OrderContext);
   const orderHistory = useContext(OrderHistoryContext);
+  const sendStatus = useAddOrder(order.state);
   return (
     <>
       <Layout drawerItems={[[]]} onDrawerClick={() => {}}>

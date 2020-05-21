@@ -1,6 +1,15 @@
-import { TOrder, TMenu, ISub, IItemFoundFromMenu, TID } from "./interfaces";
+import { IOrder, TMenu, ISub, IItemFoundFromMenu, TID } from "./interfaces";
 
 const baseURL = window.location.href;
+
+export function getPartName(url: string) {
+  let partnerName = "taumi";
+  if (url.includes("taumi")) partnerName = "taumi";
+  if (url.includes("komari")) partnerName = "komari";
+  return partnerName.toLowerCase();
+}
+export const partnerName = getPartName(baseURL);
+
 export function getIsPartnerDev(url: string): boolean {
   return url.includes("dev") && url.includes("eat-togo.com");
 }
@@ -16,7 +25,7 @@ export function getIsDev(url: string): boolean {
 }
 export const isDev = getIsDev(baseURL);
 
-export function findIndexFromOrderByID(id: TID, order: TOrder): number {
+export function findIndexFromOrderByID(id: TID, order: IOrder): number {
   const index = order.order.findIndex((element) => element.id === id);
   return index;
 }
@@ -58,7 +67,7 @@ export function mapDrawerList(drawerList: string[][]) {
   );
 }
 
-export function getTotalPrice(order: TOrder) {
+export function getTotalPrice(order: IOrder) {
   return order.order.reduce((arr, cur) => arr + cur.quantity * cur.price, 0);
 }
 

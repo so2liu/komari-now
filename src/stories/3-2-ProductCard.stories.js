@@ -2,13 +2,12 @@ import React from "react";
 import ProductCard from "../components/ProductCard";
 import CardList from "../components/CardList";
 import Rating from "../components/UI/Rating";
-import CardBase from "../components/UI/CardBase";
+import CardBase from "../components/UI/CardBase2";
 import TextInfoContent from "../components/UI/TextInfoContent";
-import partnerInfo from "../mock/taumi_menu.json";
+import { mockMenu } from "../mock";
 
-const MENU = partnerInfo.taumi.menu;
 export default {
-  title: "ProductCard",
+  title: "ProductCard2",
   component: ProductCard,
 };
 
@@ -83,12 +82,13 @@ export const TextField = () => {
 };
 
 const mockSushi = {
-  Sashimi: MENU.food.Sushi.Sashimi,
+  Sashimi: mockMenu.food.Sushi.Sashimi,
 };
 
 const mockDrink = {
-  "Mongo Shake": MENU.drinks["Hausgemachte Frische Getränke"]["Mongo Shake"],
+  "Mongo Shake":
+    mockMenu.drinks["Hausgemachte Frische Getränke"]["Mongo Shake"],
 };
 const mockDrink2 = {
-  "Very Berry": MENU.drinks["Hausgemachte Frische Getränke"]["Very Berry"],
+  "Very Berry": mockMenu.drinks["Hausgemachte Frische Getränke"]["Very Berry"],
 };

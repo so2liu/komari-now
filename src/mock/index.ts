@@ -1,8 +1,10 @@
-import { TOrder } from "../interfaces";
+import { IOrder } from "../interfaces";
 
-export const mockOrder: TOrder = {
-  submitTimestamp: new Date(),
-  isDealed: false,
+export const mockLocations = ["Karlsruhe", "Buehl"];
+export const mockOrder: IOrder = {
+  tableID: "15",
+  location: mockLocations[0],
+  isPartnerHandled: false,
   isThisTableFinished: false,
   order: [
     {
@@ -23,4 +25,4 @@ export const mockOrder: TOrder = {
 };
 
 export const mockPartnerInfo = require("./taumi_menu.json");
-export const mockMenu = mockPartnerInfo.taumi.menu;
+export const mockMenu = mockPartnerInfo.taumi.nowMenu;

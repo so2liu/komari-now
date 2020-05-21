@@ -8,17 +8,15 @@ export interface IOrderItem {
   timestamp: Date;
 }
 
-export type TOrder = Omit<ISubmitOrder, "tableID">;
-
-export interface ISubmitOrder {
+export interface IOrder {
   order: IOrderItem[];
-  tableID: string | null;
-  submitTimestamp: Date | null;
-  isDealed: boolean | null;
-  isThisTableFinished: boolean | null;
+  tableID: string;
+  location: string;
+  isPartnerHandled: boolean;
+  isThisTableFinished: boolean;
 }
 
-export type TOrderHistory = TOrder[];
+export type TOrderHistory = IOrder[];
 
 export interface ISub {
   id: TID;
@@ -32,8 +30,8 @@ export interface IProduct {
     EN: string | null;
     sub: ISub[];
     imgSrc: string | null;
-    rating: number;
     ratedNum: number;
+    rating: number;
   };
 }
 

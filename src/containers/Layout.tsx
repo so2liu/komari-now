@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import RestoreIcon from "@material-ui/icons/Restore";
 import {
   LocalBar,
@@ -9,6 +9,8 @@ import {
 
 import ResponsiveDrawer from "../components/Sidebar";
 import SimpleBottomNavigation from "../components/BottomNav";
+import { Box } from "@material-ui/core";
+import { OrderContext } from "../stores";
 
 export default (props: {
   drawerItems: {
@@ -19,14 +21,19 @@ export default (props: {
   onDrawerClick: any;
   children: React.ReactNode | React.ReactNode[];
 }) => {
+  const order = useContext(OrderContext);
   return (
     <ResponsiveDrawer
+      tableID={order.state.tableID}
+      location={order.state.location}
       drawerItems={props.drawerItems}
       onDrawerClick={(x: string) => {
         props.onDrawerClick(x);
       }}
     >
-      {props.children}
+      <Box pb={10} pt={6}>
+        {props.children}
+      </Box>
       <SimpleBottomNavigation items={bottomNavItems} />
     </ResponsiveDrawer>
   );

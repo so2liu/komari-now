@@ -10,13 +10,13 @@ export default (props: { MENU: TMenu }) => {
   const drawerItems = [
     ["Tee", "Koffee", "Hausgemachte Frische Getränke", "Kalte Getränke"],
     [
-      "Bier",
       "Asiatische Getränke",
+      "Bier",
+      "Cocktails",
       "Offene Weine (0.2L)",
       "Flaschenwein (0.75L)",
     ],
   ];
-  // const drawerItems = [Object.keys(MENU.drinks)];
   const [second, setSecond] = useState(drawerItems[0][1]);
   function handleDrawerClick(label: string) {
     console.log(label);

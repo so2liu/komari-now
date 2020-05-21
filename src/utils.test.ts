@@ -7,7 +7,7 @@ import {
   mapDrawerList,
   getTotalPrice,
 } from "./utils";
-import { TOrder, IItemFoundFromMenu } from "./interfaces";
+import { IOrder, IItemFoundFromMenu } from "./interfaces";
 import partnerInfo from "./mock/taumi_menu.json";
 
 const MENU = partnerInfo.taumi.menu;
@@ -107,9 +107,9 @@ test("getTotalPrice", () => {
   expect(getTotalPrice(mockOrder)).toBe(36.4);
 });
 
-const mockOrder: TOrder = {
-  submitTimestamp: new Date(),
-  isDealed: false,
+const mockOrder: IOrder = {
+  tableID: "15",
+  isPartnerHandled: false,
   isThisTableFinished: false,
   order: [
     {

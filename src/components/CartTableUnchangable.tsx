@@ -2,9 +2,9 @@ import React from "react";
 import Table from "./UI/Table";
 import { TableRow, TableCell, TableFooter } from "@material-ui/core";
 import { getTotalPrice } from "../utils";
-import { TOrder } from "../interfaces";
+import { IOrder } from "../interfaces";
 
-export default (props: { order: TOrder }) => {
+export default (props: { order: IOrder }) => {
   const { order } = props;
   const labels = [
     { key: "id", label: "ID" },

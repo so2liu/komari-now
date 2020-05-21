@@ -6,7 +6,7 @@ import {
   MenuContext,
   OrderHistoryContext,
 } from "./stores";
-import { TOrder, TOrderHistory } from "./interfaces";
+import { IOrder, TOrderHistory } from "./interfaces";
 import { findIndexFromOrderByID } from "./utils";
 import { mockMenu } from "./mock";
 
@@ -26,11 +26,17 @@ export default (props: { children: React.ReactNode }) => {
   );
 };
 
-function orderReducer(state: TOrder, action: { type: string; payload?: any }) {
+function orderReducer(state: IOrder, action: { type: string; payload?: any }) {
   const id = action.payload?.id;
   const index = findIndexFromOrderByID(id, state);
 
   switch (action.type) {
+    case "setTableLocation":
+      return OrderReducer.setTableLocation(
+        state,
+        action.payload.tableID,
+        action.payload.location
+      );
     case "append":
       if (index >= 0)
         return OrderReducer.changeQuantity(

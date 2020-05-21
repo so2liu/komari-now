@@ -1,6 +1,6 @@
 import { createContext, Dispatch } from "react";
 import { produce } from "immer";
-import { TOrder, TMenu, IOrderItem, TID, TOrderHistory } from "./interfaces";
+import { IOrder, TMenu, IOrderItem, TID, TOrderHistory } from "./interfaces";
 import {
   findSubFromMenuByID,
   findIndexFromOrderByID,
@@ -8,14 +8,15 @@ import {
 } from "./utils";
 import { mockMenu } from "./mock";
 
-export const OrderInit: TOrder = {
+export const OrderInit: IOrder = {
   order: [],
-  submitTimestamp: null,
-  isDealed: false,
+  tableID: "",
+  location: "",
+  isPartnerHandled: false,
   isThisTableFinished: false,
 };
 export const OrderContext = createContext<{
-  state: TOrder;
+  state: IOrder;
   dispatch: Dispatch<{ type: string; payload?: object }>;
 }>({
   state: OrderInit,
@@ -23,8 +24,16 @@ export const OrderContext = createContext<{
 });
 
 export const OrderReducer = {
+  setTableLocation: produce(function (
+    draft: IOrder,
+    tableID: string,
+    location: string
+  ) {
+    draft.tableID = tableID;
+    draft.location = location;
+  }),
   appendOrder: produce(function (
-    draft: TOrder,
+    draft: IOrder,
     id: TID,
     quantity: number,
     menu: TMenu
@@ -45,7 +54,7 @@ export const OrderReducer = {
     }
   }),
   changeQuantity: produce(function (
-    draft: TOrder,
+    draft: IOrder,
     id: TID,
     newQuantity: number
   ) {
@@ -53,7 +62,7 @@ export const OrderReducer = {
     if (targetOrderIndex >= 0)
       draft.order[targetOrderIndex].quantity = newQuantity;
   }),
-  removeItem: produce(function (draft: TOrder, id: TID) {
+  removeItem: produce(function (draft: IOrder, id: TID) {
     const targetOrderIndex = findIndexFromOrderByID(id, draft);
     if (targetOrderIndex >= 0) {
       draft.order.splice(targetOrderIndex, 1);

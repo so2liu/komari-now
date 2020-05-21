@@ -1,9 +1,7 @@
 import React from "react";
 import ProductList from "../containers/ProductList";
-import partnerInfo from "../mock/taumi_menu.json";
 import { Container } from "@material-ui/core";
-
-const MENU = partnerInfo.taumi.menu;
+import { mockMenu } from "../mock";
 
 export default {
   title: "ProductList",
@@ -26,6 +24,6 @@ export const Drinks = () => {
   );
 };
 
-const mockEat = MENU.food.Hauptspeise;
-const mockSushi = MENU.food.Sushi;
-const mockDrinks = MENU.drinks["Hausgemachte Frische Getränke"];
+const mockEat = mockMenu.food.Hauptspeise;
+const mockSushi = mockMenu.food.Sushi;
+const mockDrinks = mockMenu.drinks["Hausgemachte Frische Getränke"];

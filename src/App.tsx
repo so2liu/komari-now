@@ -11,13 +11,16 @@ import { mockMenu } from "./mock";
 import Cart from "./pages/Cart";
 import ContextProviders from "./contextProviders";
 import Drinks from "./pages/Drinks";
+import Home from "./pages/Home";
 
 function App() {
   return (
     <ContextProviders>
       <Router>
-        <Redirect from="/" exact to="/cart" />
         <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
           <Route path="/drinks">
             <Drinks MENU={mockMenu} />
           </Route>

@@ -1,5 +1,6 @@
 import React, { Children, useState } from "react";
-import PropTypes from "prop-types";
+import { Chip, Grid } from "@material-ui/core";
+import FaceIcon from "@material-ui/icons/Face";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -16,6 +17,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 export const drawerWidth = 240;
 
@@ -55,9 +57,11 @@ const useStyles = makeStyles((theme) => ({
 function ResponsiveDrawer(props: {
   drawerItems: { label: string; key: string }[][];
   onDrawerClick: (x: string) => void;
+  tableID: string;
+  location: string;
   children: React.ReactNode | React.ReactNode[];
 }) {
-  const { drawerItems } = props;
+  const { drawerItems, tableID, location } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -110,9 +114,19 @@ function ResponsiveDrawer(props: {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Responsive drawer
-          </Typography>
+          <Grid container justify="center">
+            <Typography variant="h6" noWrap>
+              {location ?? "Head"}
+            </Typography>
+          </Grid>
+
+          <Chip
+            icon={<FaceIcon />}
+            label={tableID ? `Tisch ${tableID}` : "Tisch Wählen"}
+            color="secondary"
+            component={Link}
+            to="/"
+          />
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -147,7 +161,7 @@ function ResponsiveDrawer(props: {
         </Hidden>
       </nav>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        {/* <div className={classes.toolbar} /> */}
         {props.children}
       </main>
     </div>
