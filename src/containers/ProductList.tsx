@@ -19,7 +19,7 @@ export default (props: {
   const { products } = props;
   const order = useContext(OrderContext);
   const menu = useContext(MenuContext);
-  const rating = useContext(RatingContext);
+  const ratings = useContext(RatingContext);
 
   function handleClickList(id: TID) {
     order.dispatch({
@@ -54,7 +54,7 @@ export default (props: {
           if (!mainName) return;
           const product = products[mainName];
           const ratingField =
-            findRatingFromList(mainName, rating) ?? RatingDefault;
+            findRatingFromList(mainName, ratings) ?? RatingDefault;
           return (
             <Grid item key={mainName}>
               <Box mt={4}>

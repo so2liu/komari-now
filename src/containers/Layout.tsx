@@ -13,6 +13,7 @@ import { Box, Badge, Container } from "@material-ui/core";
 import { OrderContext } from "../stores";
 import { getTotalQuantity } from "../utils";
 import PrettyJSON from "../components/PrettyJSON";
+import { useNowRatings } from "../services/firebase";
 
 export default (props: {
   drawerItems: {
@@ -24,6 +25,7 @@ export default (props: {
   children: React.ReactNode | React.ReactNode[];
 }) => {
   const order = useContext(OrderContext);
+  const nowRatings = useNowRatings();
   return (
     <ResponsiveDrawer
       tableID={order.state.tableID}
@@ -34,7 +36,10 @@ export default (props: {
       }}
     >
       <Box pb={10} pt={5}>
-        <Container>{props.children}</Container>
+        <Container>
+          {props.children}
+          <PrettyJSON jsonObj={nowRatings} />
+        </Container>
       </Box>
       <SimpleBottomNavigation
         items={bottomNavItems(getTotalQuantity(order.state))}

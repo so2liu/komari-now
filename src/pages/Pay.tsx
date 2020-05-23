@@ -21,7 +21,7 @@ export default () => {
   const products = {} as any;
   mergedOrder.IDs.forEach((id) => {
     const { firstKey, secondKey, name } = findSubFromMenuByID(id, menu);
-    products[name] = menu[firstKey][secondKey] as IProduct;
+    products[name] = menu[firstKey][secondKey][name] as IProduct;
   });
 
   return (

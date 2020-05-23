@@ -21,6 +21,10 @@ export default function HalfRating(props: {
   const classes = useStyles();
   const [value, setValue] = useState<number | null>(rating);
   useEffect(() => {
+    if (readonly) setValue(rating);
+  }, [rating]);
+
+  useEffect(() => {
     if (!readonly) setValue(null);
   }, []);
 
