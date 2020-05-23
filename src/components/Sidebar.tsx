@@ -1,4 +1,4 @@
-import React, { Children, useState } from "react";
+import React, { useState } from "react";
 import { Chip, Grid } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 import AppBar from "@material-ui/core/AppBar";
@@ -71,9 +71,8 @@ function ResponsiveDrawer(props: {
   };
 
   const drawer = (
-    <div>
+    <>
       <div className={classes.toolbar} />
-
       {drawerItems.map((items, index) => (
         <>
           <Divider key={`divider-${index}`} />
@@ -86,6 +85,7 @@ function ResponsiveDrawer(props: {
                 onClick={() => {
                   setSelectedLabel(label);
                   props.onDrawerClick(label);
+                  setMobileOpen(false);
                 }}
               >
                 <ListItemIcon>
@@ -97,7 +97,7 @@ function ResponsiveDrawer(props: {
           </List>
         </>
       ))}
-    </div>
+    </>
   );
 
   return (
