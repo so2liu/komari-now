@@ -11,10 +11,10 @@ export default () => {
   const [tableID, setTableID] = useState("");
   const [location, setLocation] = useState(mockLocations[0]);
 
-  const handleEnterTischID = () => {
+  const handleEnter = () => {
     order.dispatch({
       type: "setTableLocation",
-      payload: { tableID, location },
+      payload: { tableID: tableID.trim(), location: location.trim() },
     });
     history.replace("/drinks");
   };
@@ -40,7 +40,7 @@ export default () => {
             />
           </Grid>
           <Grid container direction="column" justify="center">
-            <Button color="primary" onClick={handleEnterTischID}>
+            <Button color="primary" onClick={handleEnter}>
               Bestätigen
             </Button>
           </Grid>

@@ -1,17 +1,24 @@
 import { createContext, Dispatch } from "react";
 import { produce } from "immer";
-import { IOrder, TMenu, IOrderItem, TID, TOrderHistory } from "./interfaces";
+import {
+  IOrder,
+  TMenu,
+  IOrderItem,
+  TID,
+  IOrderHistory,
+  IRating,
+} from "./interfaces";
 import {
   findSubFromMenuByID,
   findIndexFromOrderByID,
   concatNameSubname,
 } from "./utils";
-import { mockMenu } from "./mock";
+import { mockMenu, mockTableLocation, mockRating } from "./mock";
 
 export const OrderInit: IOrder = {
   order: [],
-  tableID: "",
-  location: "",
+  tableID: mockTableLocation.tableID,
+  location: mockTableLocation.location,
   isPartnerHandled: false,
   isThisTableFinished: false,
 };
@@ -70,9 +77,19 @@ export const OrderReducer = {
   }),
 };
 
-export const OrderHistoryContext = createContext<{
-  orderHistory: TOrderHistory;
-  setOrderHistory: React.Dispatch<React.SetStateAction<TOrderHistory>>;
-}>({ orderHistory: [], setOrderHistory: () => {} });
+// export const OrderHistoryInit: IOrderHistory = {
+//   summary: OrderInit,
+//   details: [],
+// };
+// export const OrderHistoryContext = createContext<{
+//   state: IOrderHistory;
+//   dispatch: Dispatch<{ type: string; payload?: object }>;
+// }>({ state: OrderHistoryInit, dispatch: () => null });
 
 export const MenuContext = createContext(mockMenu);
+
+export const RatingContext = createContext(mockRating);
+export const RatingDefault: IRating = {
+  ratedNum: 10,
+  rating: 5,
+};

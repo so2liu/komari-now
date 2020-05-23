@@ -1,6 +1,7 @@
 import React from "react";
 
 import Layout from "../containers/Layout";
+import { Container } from "@material-ui/core";
 
 export default (props: any) => {
   const pageURL = window.location.href.split("/").slice(-1)[0];
@@ -25,7 +26,10 @@ export default (props: any) => {
         ],
       ]}
     >
-      <h2>Hi {pageURL.toUpperCase()} Page</h2>
+      <Container>
+        <h2>Hi {pageURL.toUpperCase()} Page</h2>
+        <h3>This page is still in development.</h3>
+      </Container>
     </Layout>
   );
 };

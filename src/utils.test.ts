@@ -4,13 +4,16 @@ import {
   getIsDev,
   findIndexFromOrderByID,
   findSubFromMenuByID,
+  findProductFromMenuByName,
   mapDrawerList,
   getTotalPrice,
+  getTotalQuantity,
+  mergeOrders,
+  filterNullQuantityFromOrder,
 } from "./utils";
 import { IOrder, IItemFoundFromMenu } from "./interfaces";
-import partnerInfo from "./mock/taumi_menu.json";
-
-const MENU = partnerInfo.taumi.menu;
+import { mockMenu } from "./mock";
+import produce from "immer";
 
 const localhost = "http://localhost:3000";
 const lanLocalhost = "http://192.168.0.54:3000";
@@ -47,26 +50,36 @@ test("findIndexFromOrderByID", () => {
   expect(findIndexFromOrderByID("15", mockOrder)).toBe(-1);
 });
 
+test("findProductFromMenuByName", () => {
+  expect(findProductFromMenuByName("Catch the fish", mockMenu)).toStrictEqual([
+    "Catch the fish",
+    mockMenu.food.Vorspeise["Catch the fish"],
+  ]);
+});
+
 test("findSubFromMenuByID", () => {
-  expect(findSubFromMenuByID("1", MENU)).toStrictEqual({
+  expect(findSubFromMenuByID("1", mockMenu)).toStrictEqual({
     isFound: true,
     firstKey: "food",
     secondKey: "Vorspeise",
+    name: "Catch the fish",
     sub: { id: "1", subname: null, price: 7.5 },
   } as IItemFoundFromMenu);
 
-  expect(findSubFromMenuByID("M11", MENU)).toStrictEqual({
+  expect(findSubFromMenuByID("M11", mockMenu)).toStrictEqual({
     isFound: true,
     firstKey: "food",
     secondKey: "Sushi",
+    name: "MAKI (8 stk)",
     sub: { id: "M11", subname: "Avocado - Avocado", price: 4.2 },
   } as IItemFoundFromMenu);
 
-  expect(findSubFromMenuByID("M1", MENU)).toStrictEqual({
+  expect(findSubFromMenuByID("M1", mockMenu)).toStrictEqual({
     isFound: false,
-    firstKey: null,
-    secondKey: null,
-    sub: { id: null, subname: null, price: null },
+    firstKey: "",
+    secondKey: "",
+    name: "",
+    sub: { id: "", subname: "", price: 0 },
   } as IItemFoundFromMenu);
 });
 
@@ -107,8 +120,33 @@ test("getTotalPrice", () => {
   expect(getTotalPrice(mockOrder)).toBe(36.4);
 });
 
+test("getTotalPrice", () => {
+  expect(getTotalQuantity(mockOrder)).toBe(4);
+});
+
+test("mergeOrders", () => {
+  expect(mergeOrders([mockOrder, mockOrder])).toStrictEqual({
+    IDs: ["M11", "15H"],
+    quantities: [4, 4],
+  });
+});
+
+test("filterNullQuantityFromOrder", () => {
+  expect(filterNullQuantityFromOrder(mockOrder)).toStrictEqual(mockOrder);
+  const mockOrderWithNullQty = produce(mockOrder, (draft) => {
+    draft.order[0].quantity = 0;
+  });
+  const filtedOrder = produce(mockOrder, (draft) => {
+    draft.order.shift();
+  });
+  expect(filterNullQuantityFromOrder(mockOrderWithNullQty)).toStrictEqual(
+    filtedOrder
+  );
+});
+
 const mockOrder: IOrder = {
   tableID: "15",
+  location: "Karlsruhe",
   isPartnerHandled: false,
   isThisTableFinished: false,
   order: [

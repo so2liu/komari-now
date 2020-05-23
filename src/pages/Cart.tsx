@@ -3,39 +3,39 @@ import Layout from "../containers/Layout";
 import CartTable from "../components/CartTable";
 import CartTableUnchangable from "../components/CartTableUnchangable";
 import { Button, Grid, Box, Typography } from "@material-ui/core";
-import { OrderHistoryContext, OrderContext } from "../stores";
+import { OrderContext } from "../stores";
 import { Divider } from "@material-ui/core";
-import { useAddOrder } from "../services/firebase";
+import { addOrder, useNowOrders } from "../services/firebase";
+import { IOrder } from "../interfaces";
+import { filterNullQuantityFromOrder } from "../utils";
 
 export default () => {
   const order = useContext(OrderContext);
-  const orderHistory = useContext(OrderHistoryContext);
-  const sendStatus = useAddOrder(order.state);
+  const nowOrder = useNowOrders(order.state.tableID);
   return (
     <>
       <Layout drawerItems={[[]]} onDrawerClick={() => {}}>
-        <Box m={2}>
+        <Box mt={2}>
           <Typography variant="h5">Kaufwagen</Typography>
         </Box>
-
         {order.state.order.length > 0 ? (
           <CartTableWithBtn />
         ) : (
-          <Box m={2}>
+          <Box mt={2}>
             <Typography variant="body1">Ihre Kaufwagen ist leer.</Typography>
           </Box>
         )}
-        {orderHistory.orderHistory.length > 0 && (
+        {nowOrder.order.length > 0 && (
           <>
-            <Box mt={2} mb={2}>
+            <Box mt={2}>
               <Divider />
             </Box>
-            <Box m={2}>
+            <Box mt={2}>
               <Typography variant="h5">Gesendete Bestellungen</Typography>
             </Box>
-            {orderHistory.orderHistory.map((order, index) => (
+            {nowOrder.order.map((order, index) => (
               <Box mt={2} key={index}>
-                <CartTableUnchangable order={order} />
+                <CartTableUnchangable order={order as IOrder} />
               </Box>
             ))}
           </>
@@ -47,11 +47,17 @@ export default () => {
 
 const CartTableWithBtn = () => {
   const order = useContext(OrderContext);
-  const orderHistory = useContext(OrderHistoryContext);
 
   function handleSend() {
-    orderHistory.setOrderHistory((pre) => [...pre, order.state]);
-    order.dispatch({ type: "Clear" });
+    addOrder(filterNullQuantityFromOrder(order.state)).then((response) => {
+      switch (response.isError) {
+        case false:
+          order.dispatch({ type: "Clear" });
+          return;
+        case true:
+          throw new Error(response.error);
+      }
+    });
   }
 
   const SendBtn = (
@@ -60,13 +66,11 @@ const CartTableWithBtn = () => {
     </Button>
   );
   return (
-    <Grid container direction="column" alignItems="center">
-      <Grid item>
+    <>
+      <Box mt={2}>
         <CartTable />
-      </Grid>
-      <Grid item>
-        <Box m={2}>{SendBtn}</Box>
-      </Grid>
-    </Grid>
+      </Box>
+      <Box mt={2}>{SendBtn}</Box>
+    </>
   );
 };

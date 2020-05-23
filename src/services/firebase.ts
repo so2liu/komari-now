@@ -8,19 +8,25 @@ import { IOrder } from "../interfaces";
 
 firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
+const firestore = firebase.firestore();
 const storage = firebase.storage();
+
+const devPrefix = isDeveloperDev ? "dev" : "";
+const orderCollectionName = `${devPrefix}-${partnerName}-nowOrders`;
+const ratingCollectionName = `${devPrefix}-${partnerName}-nowRatings`;
 
 export const useStatisticVariables = () => {
   const [statisticVariables, setStatisticVariables] = useState({});
 
   useEffect(() => {
     if (isDev) console.log("fetch statisticVariables");
-    const unsubscribe = db.collection(partnerName).onSnapshot((snapshot) => {
-      setStatisticVariables(
-        Object.fromEntries(snapshot.docs.map((doc) => [doc.id, doc.data()]))
-      );
-    });
+    const unsubscribe = firestore
+      .collection(partnerName)
+      .onSnapshot((snapshot) => {
+        setStatisticVariables(
+          Object.fromEntries(snapshot.docs.map((doc) => [doc.id, doc.data()]))
+        );
+      });
     return () => {
       unsubscribe();
     };
@@ -28,56 +34,97 @@ export const useStatisticVariables = () => {
   return statisticVariables;
 };
 
-export const useAddOrder = (content: IOrder) => {
-  const initResponse = {
+export const useNowOrders = (tableID: string) => {
+  const [state, setState] = useState<firebase.firestore.DocumentData[]>([]);
+  const [error, setError] = useState({ isError: false, error: "" });
+  useEffect(() => {
+    const unsubscribe = firestore
+      .collection(orderCollectionName)
+      .where("tableID", "==", tableID)
+      .where("isThisTableFinished", "==", false)
+      // .orderBy("updatedAt", "desc")
+      .onSnapshot(
+        (snapshot) => {
+          setState(
+            snapshot.docs
+              .map((doc) => doc.data())
+              .sort((a, b) => (a.updatedAt > b.updatedAt ? -1 : 1))
+          );
+        },
+        (error) => {
+          setError({ isError: true, error: error.name });
+        }
+      );
+    return () => {
+      unsubscribe();
+    };
+  }, [tableID, setState]);
+  return { order: state, error };
+};
+export const useNowRatings = () => {
+  const [state, setState] = useState<firebase.firestore.DocumentData[]>([]);
+  const [error, setError] = useState({ isError: false, error: "" });
+  useEffect(() => {
+    const unsubscribe = firestore.collection(ratingCollectionName).onSnapshot(
+      (snapshot) => {
+        setState(snapshot.docs.map((doc) => [doc.id, doc.data()]));
+      },
+      (error) => {
+        setError({ isError: true, error: error.name });
+      }
+    );
+    return () => {
+      unsubscribe();
+    };
+  }, [setState]);
+  return { ratings: state, error };
+};
+
+export async function addOrder(order: IOrder) {
+  const response = {
     isError: false,
-    pending: true,
     orderId: "",
     error: "",
   };
-  const [response, setResponse] = useState(initResponse);
-  useEffect(() => {
-    if (content) {
-      db.collection(`${isDeveloperDev ? "dev" : ""}-${partnerName}-nowOrders`)
-        .add({
-          ...content,
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-          version: "v1",
-          paid: false,
-          isDev: isDev,
-        })
-        .then((docRef) => {
-          setResponse((prev) => ({
-            ...prev,
-            pending: false,
-            orderId: docRef.id,
-          }));
-          if (isDev) console.log("Document written with ID: ", docRef.id);
-        })
-        .catch((error) => {
-          console.error("Error adding document: ", error);
-          setResponse((prev) => ({
-            ...prev,
-            pending: false,
-            isError: true,
-            error,
-          }));
-        });
-    }
-  }, [content, setResponse]);
+
+  const content = {
+    ...order,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    version: "v1",
+    paid: false,
+    isDev: isDev,
+  };
+  try {
+    const docRef = await firestore.collection(orderCollectionName).add(content);
+    response.orderId = docRef.id;
+  } catch (error) {
+    console.log(error.message);
+    response.isError = true;
+    response.error = error.code;
+  }
   return response;
-};
+}
 
-// export const addOrder(content: IOrder, location: string){
-//     const initResponse = {
-//     isError: false,
-//     pending: true,
-//     orderId: "",
-//     error: "",
-//   };
-//   const [response, setResponse] = useState(initResponse);
+export async function setRating(
+  name: string,
+  ratedNum: number,
+  rating: number
+) {
+  const response = {
+    isError: false,
+    error: "",
+  };
 
-// }
+  const content = { ratedNum, rating };
+  try {
+    await firestore.collection(ratingCollectionName).doc(name).set(content);
+  } catch (error) {
+    console.error(error.message);
+    response.isError = true;
+    response.error = error.code;
+  }
+  return response;
+}
 
 export const useImageURL = (name: string | null) => {
   const [url, setUrl] = useState({

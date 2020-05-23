@@ -7,12 +7,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 300,
     maxWidth: 650,
-    width: 375,
+    // width: 350,
   },
 });
 
@@ -26,29 +27,31 @@ export default function SimpleTable(props: {
   const { labels, data, row } = props;
   const keys = labels.map(({ key }) => key);
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            {labels.map(({ label, key }, index) => (
-              <TableCell
-                key={key}
-                align={
-                  index === 0
-                    ? "left"
-                    : index === keys.length - 1
-                    ? "right"
-                    : "center"
-                }
-              >
-                {label}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>{data.map((item) => row(item, keys))}</TableBody>
-        {props.footer}
-      </Table>
+    <TableContainer component={Paper} className={classes.table}>
+      <Box pl={1} pr={1}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {labels.map(({ label, key }, index) => (
+                <TableCell
+                  key={key}
+                  align={
+                    index === 0
+                      ? "left"
+                      : index === keys.length - 1
+                      ? "right"
+                      : "center"
+                  }
+                >
+                  {label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>{data.map((item) => row(item, keys))}</TableBody>
+          {props.footer}
+        </Table>
+      </Box>
     </TableContainer>
   );
 }

@@ -12,6 +12,7 @@ import Cart from "./pages/Cart";
 import ContextProviders from "./contextProviders";
 import Drinks from "./pages/Drinks";
 import Home from "./pages/Home";
+import Pay from "./pages/Pay";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             <Cart />
           </Route>
           <Route path="/pay">
-            <MockPage />
+            <Pay />
           </Route>
         </Switch>
       </Router>

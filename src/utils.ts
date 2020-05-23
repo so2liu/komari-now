@@ -1,4 +1,14 @@
-import { IOrder, TMenu, ISub, IItemFoundFromMenu, TID } from "./interfaces";
+import {
+  IOrder,
+  TMenu,
+  IItemFoundFromMenu,
+  TID,
+  IProduct,
+  TNowRatings,
+} from "./interfaces";
+import { OrderInit } from "./stores";
+import produce from "immer";
+import { Drafts } from "@material-ui/icons";
 
 const baseURL = window.location.href;
 
@@ -33,10 +43,10 @@ export function findIndexFromOrderByID(id: TID, order: IOrder): number {
 export function findSubFromMenuByID(id: TID, menu: TMenu): IItemFoundFromMenu {
   const target: IItemFoundFromMenu = {
     isFound: false,
-    sub: { id: null, subname: null, price: null },
-    firstKey: null,
-    secondKey: null,
-    name: null,
+    sub: { id: "", subname: "", price: 0 },
+    firstKey: "",
+    secondKey: "",
+    name: "",
   };
   for (let [firstKey, firstContent] of Object.entries(menu)) {
     for (let [secondKey, secondContent] of Object.entries(firstContent)) {
@@ -58,6 +68,22 @@ export function findSubFromMenuByID(id: TID, menu: TMenu): IItemFoundFromMenu {
   return target;
 }
 
+export function findProductFromMenuByName(targetName: string, menu: TMenu) {
+  const target: [string?, IProduct?] = [];
+  for (let [firstKey, firstContent] of Object.entries(menu)) {
+    for (let [secondKey, secondContent] of Object.entries(firstContent)) {
+      if (secondContent) {
+        for (let [name, content] of Object.entries(secondContent)) {
+          if (name.trim() === targetName.trim()) {
+            target.push(name, content);
+          }
+        }
+      }
+    }
+  }
+  return target;
+}
+
 export function mapDrawerList(drawerList: string[][]) {
   return drawerList.map((eachList) =>
     eachList.map((item) => ({
@@ -71,8 +97,84 @@ export function getTotalPrice(order: IOrder) {
   return order.order.reduce((arr, cur) => arr + cur.quantity * cur.price, 0);
 }
 
+export function getTotalQuantity(order: IOrder) {
+  return order.order.reduce((arr, cur) => arr + cur.quantity, 0);
+}
+
 export function concatNameSubname(name: string, subname: string | null) {
   if (!subname) return name;
   const partSubname = subname.split("-")[0];
-  return [name, partSubname].join(" ");
+  return [name, partSubname].join(" ").trim();
+}
+
+export function mergeOrderWithDetail(order1: IOrder, willChangedOrder: IOrder) {
+  console.warn("mergeOrderWithDetail is slow. Try not use it");
+  if (order1.order.length === 0) return willChangedOrder;
+  if (willChangedOrder.order.length === 0) return order1;
+  order1.order.forEach((orderItem) => {
+    const { id, quantity } = orderItem;
+    const index = findIndexFromOrderByID(id, willChangedOrder);
+    if (index >= 0) {
+      willChangedOrder.order[index].quantity += quantity;
+    } else {
+      willChangedOrder.order.push(orderItem);
+    }
+  });
+  return willChangedOrder;
+}
+
+export function mergeOrders(orders: IOrder[]) {
+  const IDs: string[] = [];
+  const quantities: number[] = [];
+  orders.forEach((order) => {
+    order.order.forEach(({ id, quantity }) => {
+      const index = IDs.findIndex((existId) => existId === id);
+      if (index >= 0) {
+        quantities[index] += quantity;
+      } else {
+        IDs.push(id);
+        quantities.push(quantity);
+      }
+    });
+  });
+  return { IDs, quantities };
+}
+
+export function createOrder(IDs: string[], quantities: number[], menu: TMenu) {
+  const order = JSON.parse(JSON.stringify(OrderInit));
+  order.order = IDs.map((id, index) => {
+    const { isFound, name, sub } = findSubFromMenuByID(id, menu);
+    if (!isFound) throw new Error("Strange Error");
+    return {
+      id,
+      name: concatNameSubname(name, sub.subname),
+      price: sub.price,
+      quantity: quantities[index],
+      timestamp: new Date(),
+    };
+  });
+  return order;
+}
+
+export function updateRating(
+  ratedNum: number,
+  rating: number,
+  newRating: number
+) {
+  const updatedRatedNum = ratedNum + 1;
+  const updatedRating = (ratedNum * rating + newRating) / updatedRatedNum;
+  return [updatedRatedNum, updatedRating];
+}
+
+export function findRatingFromList(name: string, nowRatings: TNowRatings) {
+  const result = nowRatings.filter((pair) => pair[0] === name);
+  if (result.length === 1) return result[0][1];
+  if (result.length === 0) return undefined;
+  throw new Error(`Dulplicate Key in nowRatings: ${name}`);
+}
+
+export function filterNullQuantityFromOrder(order: IOrder) {
+  return produce(order, (draft) => {
+    draft.order = draft.order.filter(({ quantity }) => quantity > 0);
+  });
 }

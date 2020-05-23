@@ -1,4 +1,4 @@
-import { IOrder } from "../interfaces";
+import { IOrder, IRating } from "../interfaces";
 
 export const mockLocations = ["Karlsruhe", "Buehl"];
 export const mockOrder: IOrder = {
@@ -26,3 +26,14 @@ export const mockOrder: IOrder = {
 
 export const mockPartnerInfo = require("./taumi_menu.json");
 export const mockMenu = mockPartnerInfo.taumi.nowMenu;
+export const mockTableLocation = { tableID: "12", location: "Karlsruhe" };
+
+export const mockRating: [string, IRating][] = [
+  [
+    "Catch the fish",
+    {
+      ratedNum: 10,
+      rating: 3,
+    },
+  ],
+];

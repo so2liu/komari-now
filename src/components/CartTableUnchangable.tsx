@@ -34,12 +34,6 @@ export default (props: { order: IOrder }) => {
                 {item[keys[0]]}
               </TableCell>
             );
-          // if (key === "quantity")
-          //   return (
-          //     <TableCell key={index} align="right">
-          //      {}
-          //     </TableCell>
-          //   );
           return (
             <TableCell key={index} align="right">
               {item[key]}

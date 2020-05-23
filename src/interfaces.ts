@@ -16,7 +16,10 @@ export interface IOrder {
   isThisTableFinished: boolean;
 }
 
-export type TOrderHistory = IOrder[];
+export interface IOrderHistory {
+  details: IOrder[];
+  summary: IOrder;
+}
 
 export interface ISub {
   id: TID;
@@ -25,46 +28,33 @@ export interface ISub {
 }
 
 export interface IProduct {
-  [name: string]: {
-    DE: string;
-    EN: string | null;
-    sub: ISub[];
-    imgSrc: string | null;
-    ratedNum: number;
-    rating: number;
-  };
+  DE: string;
+  EN: string | null;
+  sub: ISub[];
+  imgSrc: string | null;
 }
 
-// export type menu = {
-//   [first in "food" | "drinks"]: {
-//     [second in
-//       | "Angebote"
-//       | "Sushiset"
-//       | "Sushi"
-//       | "Hauptspeise"
-//       | "Vorspeise"]:
-//       | {}
-//       | {
-//           [name: string]: {
-//             DE: string;
-//             EN: string | null;
-//             sub: sub[];
-//             imgSrc: string | null;
-//           };
-//         };
-//   };
-// };
+export interface IRating {
+  ratedNum: number;
+  rating: number;
+}
+
+export type TNowRatings = [string, IRating][];
+
+export interface IProducts {
+  [name: string]: IProduct;
+}
 
 export type TMenu = {
   [first: string]: {
-    [second: string]: {} | IProduct;
+    [second: string]: {} | IProducts;
   };
 };
 
 export interface IItemFoundFromMenu {
   isFound: boolean;
-  sub: { id: null; subname: null; price: null } | ISub;
-  firstKey: null | string;
-  secondKey: null | string;
-  name: null | string;
+  sub: ISub;
+  firstKey: string;
+  secondKey: string;
+  name: string;
 }

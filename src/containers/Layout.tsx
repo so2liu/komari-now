@@ -1,16 +1,18 @@
 import React, { useContext } from "react";
-import RestoreIcon from "@material-ui/icons/Restore";
 import {
   LocalBar,
   Restaurant,
   Payment,
   ShoppingBasket,
+  ShoppingCart,
 } from "@material-ui/icons";
 
 import ResponsiveDrawer from "../components/Sidebar";
 import SimpleBottomNavigation from "../components/BottomNav";
-import { Box } from "@material-ui/core";
+import { Box, Badge, Container } from "@material-ui/core";
 import { OrderContext } from "../stores";
+import { getTotalQuantity } from "../utils";
+import PrettyJSON from "../components/PrettyJSON";
 
 export default (props: {
   drawerItems: {
@@ -31,15 +33,17 @@ export default (props: {
         props.onDrawerClick(x);
       }}
     >
-      <Box pb={10} pt={6}>
-        {props.children}
+      <Box pb={10} pt={5}>
+        <Container>{props.children}</Container>
       </Box>
-      <SimpleBottomNavigation items={bottomNavItems} />
+      <SimpleBottomNavigation
+        items={bottomNavItems(getTotalQuantity(order.state))}
+      />
     </ResponsiveDrawer>
   );
 };
 
-const bottomNavItems = [
+const bottomNavItems = (badgesNum: number) => [
   {
     key: "drinks",
     label: "Getränke",
@@ -56,7 +60,11 @@ const bottomNavItems = [
     key: "cart",
     label: "Bestellungen",
     link: "/cart",
-    icon: <ShoppingBasket />,
+    icon: (
+      <Badge badgeContent={badgesNum} color="secondary">
+        <ShoppingCart />
+      </Badge>
+    ),
   },
   {
     key: "pay",

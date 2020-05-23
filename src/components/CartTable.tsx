@@ -28,7 +28,7 @@ export default () => {
   const row = (item: { [label: string]: string | number }, keys: string[]) => {
     const handlePlus = () => {
       order.dispatch({
-        type: "increment",
+        type: "Increment",
         payload: {
           id: item["id"],
         },
@@ -36,7 +36,7 @@ export default () => {
     };
     const handleMinus = () => {
       order.dispatch({
-        type: "decrement",
+        type: "Decrement",
         payload: {
           id: item["id"],
         },
